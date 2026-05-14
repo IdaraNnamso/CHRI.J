@@ -1,14 +1,24 @@
 export default function ProductCard({ image, name, price }) {
   return (
     <div className="card">
-      <img src={image} alt={name} />
+
+      <div className="card-image">
+        <img src={image} alt={name} />
+      </div>
 
       <div className="card-info">
-        <h3>{name}</h3>
-        <p>₦{price}</p>
+        <span className="brand-tag">Chris J Collection</span>
 
-        <button>Buy Now</button>
+        <h3>{name}</h3>
+
+        <p className="price">₦{price}</p>
+
+        <div className="card-actions">
+          <button>Add To Cart</button>
+          <button className="outline-btn">View</button>
+        </div>
       </div>
+
     </div>
   );
 }

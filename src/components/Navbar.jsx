@@ -5,7 +5,7 @@ export default function Navbar() {
   return (
     <nav className="nav">
      <h2 className="logo">
-  Chris.<span>J</span>
+ Backand<span>call</span>
 </h2>
 
       <div className="nav-links">
