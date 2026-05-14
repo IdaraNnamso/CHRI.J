@@ -44,7 +44,7 @@ export default function Home() {
 
           <div className="footer-column">
             <h2 className="footer-logo">
-          Backand<span>call</span>
+          Beckand<span>call</span>
             </h2>
 
             <p>
@@ -83,7 +83,7 @@ export default function Home() {
         </div>
 
         <div className="footer-bottom">
-          © 2026 Chris J — Luxury Fashion House
+          © 2026 Beck & Call 🛍️ — Luxury Fashion House
         </div>
 
       </footer>

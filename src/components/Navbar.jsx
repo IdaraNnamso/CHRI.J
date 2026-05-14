@@ -5,12 +5,11 @@ export default function Navbar() {
   return (
     <nav className="nav">
      <h2 className="logo">
- Backand<span>call</span>
+ Beckand<span>call</span>
 </h2>
 
       <div className="nav-links">
         <Link to="/">Home</Link>
-        <Link to="/sell">Sell</Link>
         <Link to="/cart">
           <FaShoppingCart />
         </Link>

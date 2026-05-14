@@ -10,19 +10,29 @@
   --text: #111111;
   --soft: #777777;
   --line: #e5ddd2;
-  --gold: #a67c52;
+  --pink: #ff00c8;
   --gold-dark: #7a5a38;
   --shadow: 0 10px 40px rgba(0,0,0,0.06);
 }
 
 body {
   font-family: "Helvetica Neue", sans-serif;
-  background: var(--bg);
   color: var(--text);
   overflow-x: hidden;
+
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #fff4f8 25%,
+    #ffe3ee 55%,
+    #ffffff 100%
+  );
+
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* GLOBAL */
 
 button {
   font-family: inherit;
@@ -35,8 +45,6 @@ img {
 a {
   text-decoration: none;
 }
-
-/* NAVBAR */
 
 .nav {
   width: 100%;
@@ -54,8 +62,6 @@ a {
   transition: 0.4s ease;
 }
 
-/* LOGO */
-
 .logo {
   position: relative;
   font-size: 3rem;
@@ -70,11 +76,10 @@ a {
 }
 
 .logo span {
-  color: var(--gold);
+  color: var(--pink);
   position: relative;
 }
 
-/* elegant underline */
 
 .logo::after {
   content: "";
@@ -86,7 +91,7 @@ a {
   background: linear-gradient(
     to right,
     transparent,
-    var(--gold),
+    var(--pink),
     transparent
   );
 
@@ -98,21 +103,15 @@ a {
   transform: scaleX(1);
 }
 
-/* hover effect */
-
 .logo:hover {
   letter-spacing: 18px;
 }
-
-/* NAV LINKS */
 
 .nav-links {
   display: flex;
   align-items: center;
   gap: 40px;
 }
-
-/* LINKS */
 
 .nav-links a {
   text-decoration: none;
@@ -124,8 +123,6 @@ a {
   position: relative;
   transition: 0.3s ease;
 }
-
-/* animated underline */
 
 .nav-links a::after {
   content: "";
@@ -161,11 +158,10 @@ a {
 }
 
 .nav-icons svg:hover {
-  color: var(--gold);
+  color: var(--pink);
   transform: translateY(-2px);
 }
 
-/* MOBILE */
 
 @media (max-width: 768px) {
 
@@ -204,7 +200,7 @@ a {
   --text: #111111;
   --soft: #777777;
   --line: #e5ddd2;
-  --gold: #a67c52;
+  --pink: #ff00c8;
   --gold-dark: #7a5a38;
   --shadow: 0 10px 40px rgba(0,0,0,0.06);
   --shadow-hover: 0 18px 60px rgba(0,0,0,0.12);
@@ -213,7 +209,6 @@ a {
   --transition: 0.45s cubic-bezier(.4,0,.2,1);
 }
 
-/* smoother experience */
 html {
   scroll-behavior: smooth;
 }
@@ -227,7 +222,6 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* GLOBAL */
 button, a {
   transition: var(--transition);
 }
@@ -242,7 +236,6 @@ img {
   max-width: 100%;
 }
 
-/* NAVBAR */
 .nav {
   width: 100%;
   height: 110px;
@@ -262,7 +255,6 @@ img {
   transition: var(--transition);
 }
 
-/* LOGO */
 .logo {
   font-size: clamp(1.6rem, 2.5vw, 3rem);
   font-family: serif;
@@ -274,7 +266,7 @@ img {
 }
 
 .logo span {
-  color: var(--gold);
+  color: var(--pink);
 }
 
 .logo::after {
@@ -298,7 +290,6 @@ img {
   transform: scaleX(1);
 }
 
-/* NAV LINKS */
 .nav-links {
   display: flex;
   align-items: center;
@@ -333,7 +324,6 @@ img {
   width: 100%;
 }
 
-/* ICONS */
 .nav-icons {
   display: flex;
   align-items: center;
@@ -347,11 +337,10 @@ img {
 }
 
 .nav-icons svg:hover {
-  color: var(--gold);
+  color: var(--pink);
   transform: translateY(-3px) scale(1.05);
 }
 
-/* HERO */
 .hero {
   min-height: 95vh;
   padding: 140px 90px 100px;
@@ -393,20 +382,18 @@ img {
 }
 
 .hero button:hover {
-  background: var(--gold);
+  background: var(--pink);
   color: white;
   transform: translateY(-2px);
   box-shadow: var(--shadow-hover);
 }
 
-/* PRODUCTS */
 .products {
   padding: 40px 80px 130px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 50px;
 }
-
 /* CARD */
 .card {
   background: var(--white);
@@ -449,13 +436,12 @@ img {
   transform: scale(1.1);
 }
 
-/* INFO */
 .card-info {
   padding: 30px 20px;
 }
 
 .brand-tag {
-  color: var(--gold);
+  color: var(--pink);
   font-size: 11px;
   letter-spacing: 3px;
   margin-bottom: 12px;
@@ -473,7 +459,6 @@ img {
   margin-bottom: 25px;
 }
 
-/* BUTTONS */
 .card-actions {
   display: flex;
   gap: 12px;
@@ -506,14 +491,12 @@ img {
   color: white !important;
 }
 
-/* FOCUS STATES (IMPORTANT UPGRADE) */
 button:focus-visible,
 a:focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 3px;
 }
 
-/* FOOTER */
 .footer {
   background: #111;
   color: white;
@@ -525,7 +508,6 @@ a:focus-visible {
   transform: translateX(3px);
 }
 
-/* MOBILE UPGRADE */
 @media (max-width: 950px) {
   .hero {
     padding: 120px 30px 80px;
@@ -544,7 +526,7 @@ a:focus-visible {
 
 @media (max-width: 600px) {
   .nav-links {
-    display: none; /* cleaner mobile UX */
+    display: none; 
   }
 
   .hero h1 {
@@ -559,7 +541,6 @@ a:focus-visible {
   }
 
 }
-/* HERO */
 
 .hero {
   min-height: 95vh;
@@ -603,11 +584,10 @@ a:focus-visible {
 }
 
 .hero button:hover {
-  background: var(--gold);
+  background: var(--pink);
   color: white;
 }
 
-/* SECTION */
 
 .section-title {
   padding: 110px 20px 70px;
@@ -625,7 +605,6 @@ a:focus-visible {
   letter-spacing: 1px;
 }
 
-/* PRODUCTS */
 
 .products {
   padding: 20px 80px 130px;
@@ -634,7 +613,6 @@ a:focus-visible {
   gap: 60px;
 }
 
-/* CARD */
 
 .card {
   background: var(--white);
@@ -675,7 +653,6 @@ a:focus-visible {
   transform: scale(1.08);
 }
 
-/* CARD INFO */
 
 .card-info {
   padding: 35px 20px 20px;
@@ -702,8 +679,6 @@ a:focus-visible {
   color: var(--gold);
   margin-bottom: 30px;
 }
-
-/* BUTTONS */
 
 .card-actions {
   display: flex;
@@ -737,8 +712,6 @@ a:focus-visible {
   background: black !important;
   color: white !important;
 }
-
-/* PROFILE PAGE */
 
 .profile {
   padding: 120px 20px;
@@ -809,61 +782,6 @@ a:focus-visible {
   font-size: 20px;
 }
 
-/* SELL PAGE */
-
-.sell-container {
-  padding: 120px 20px;
-  display: flex;
-  justify-content: center;
-}
-
-.sell-card {
-  width: 100%;
-  max-width: 720px;
-  background: var(--white);
-  padding: 60px;
-  box-shadow: var(--shadow);
-}
-
-.sell-card h2 {
-  font-size: 3rem;
-  font-family: serif;
-  margin-bottom: 40px;
-}
-
-.sell-card input,
-.sell-card textarea {
-  width: 100%;
-  padding: 20px;
-  margin-bottom: 22px;
-  border: 1px solid #ddd;
-  background: #fafafa;
-  outline: none;
-  font-size: 15px;
-}
-
-.sell-card textarea {
-  resize: none;
-  height: 170px;
-}
-
-.sell-card button {
-  padding: 18px 40px;
-  border: none;
-  background: black;
-  color: white;
-  cursor: pointer;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  transition: 0.4s ease;
-}
-
-.sell-card button:hover {
-  background: var(--gold);
-}
-
-/* CART */
-
 .cart-container {
   padding: 120px 20px;
 }
@@ -911,7 +829,7 @@ a:focus-visible {
 }
 
 .cart-info p {
-  color: var(--gold);
+  color: var(--pink);
   font-size: 1.4rem;
   margin-bottom: 30px;
 }
@@ -928,7 +846,7 @@ a:focus-visible {
 }
 
 .cart-info button:hover {
-  background: var(--gold);
+  background: var(--pink);
 }
 
 .cart-total {
@@ -954,10 +872,9 @@ a:focus-visible {
 }
 
 .cart-total button:hover {
-  background: var(--gold);
+  background: var(--pink);
 }
 
-/* FOOTER */
 
 .footer {
   background: #111;
@@ -973,10 +890,10 @@ a:focus-visible {
 }
 
 .footer-logo {
-  font-size: 1.4rem;          /* smaller = fits footer column */
+  font-size: 1.4rem;         
   font-family: serif;
   font-weight: 700;
-  letter-spacing: 5px;        /* controlled spacing */
+  letter-spacing: 5px;        
   text-transform: uppercase;
   color: white;
   line-height: 1;
@@ -987,7 +904,6 @@ a:focus-visible {
   transition: 0.4s ease;
 }
 
-/* underline effect */
 .footer-logo::after {
   content: "";
   position: absolute;
@@ -995,13 +911,13 @@ a:focus-visible {
   bottom: -10px;
   width: 100%;
   height: 1px;
-  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  background: linear-gradient(to right, transparent, var(--pink), transparent);
   transform: scaleX(0.6);
   transition: 0.4s ease;
 }
 
 .footer-logo:hover {
-  color: var(--gold);
+  color: var(--pink);
   letter-spacing: 6px;
   transform: translateY(-2px);
 }
@@ -1035,7 +951,6 @@ a:focus-visible {
   color: rgba(255,255,255,0.5);
 }
 
-/* MOBILE */
 
 @media (max-width: 950px) {
 
