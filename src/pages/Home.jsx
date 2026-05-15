@@ -1,11 +1,13 @@
+import { useState } from "react";
 import Navbar from "../components/Navbar";
 import ProductCard from "../components/ProductCard";
 import products from "../data/products";
 
 export default function Home() {
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
   return (
     <div>
-
       <Navbar />
 
       <section className="hero">
@@ -34,17 +36,60 @@ export default function Home() {
             image={item.image}
             name={item.name}
             price={item.price}
+            onView={() => setSelectedProduct(item)}
           />
         ))}
       </section>
 
+      {/* POPUP */}
+      {selectedProduct && (
+        <div
+          className="popup-overlay"
+          onClick={() => setSelectedProduct(null)}
+        >
+          <div
+            className="popup-card"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="close-btn"
+              onClick={() => setSelectedProduct(null)}
+            >
+              ✕
+            </button>
+
+            <img
+              src={selectedProduct.image}
+              alt={selectedProduct.name}
+            />
+
+            <div className="popup-info">
+              <span>Chris J Collection</span>
+
+              <h2>{selectedProduct.name}</h2>
+
+              <p className="popup-price">
+                ₦{selectedProduct.price}
+              </p>
+
+              <p>
+                Premium luxury fashion crafted for modern elegance
+                and everyday confidence.
+              </p>
+
+              <button className="popup-btn">
+                Add To Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <footer className="footer">
-
         <div className="footer-top">
-
           <div className="footer-column">
             <h2 className="footer-logo">
-          Beckand<span>call</span>
+              Beckand<span>call</span>
             </h2>
 
             <p>
@@ -79,15 +124,12 @@ export default function Home() {
             <a href="#">Pinterest</a>
             <a href="#">Twitter</a>
           </div>
-
         </div>
 
         <div className="footer-bottom">
           © 2026 Beck & Call 🛍️ — Luxury Fashion House
         </div>
-
       </footer>
-
     </div>
   );
 }

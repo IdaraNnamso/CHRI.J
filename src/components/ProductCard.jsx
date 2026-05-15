@@ -1,4 +1,9 @@
-export default function ProductCard({ image, name, price }) {
+export default function ProductCard({
+  image,
+  name,
+  price,
+  onView,
+}) {
   return (
     <div className="card">
 
@@ -7,7 +12,9 @@ export default function ProductCard({ image, name, price }) {
       </div>
 
       <div className="card-info">
-        <span className="brand-tag">Chris J Collection</span>
+        <span className="brand-tag">
+          Chris J Collection
+        </span>
 
         <h3>{name}</h3>
 
@@ -15,7 +22,13 @@ export default function ProductCard({ image, name, price }) {
 
         <div className="card-actions">
           <button>Add To Cart</button>
-          <button className="outline-btn">View</button>
+
+          <button
+            className="outline-btn"
+            onClick={onView}
+          >
+            View
+          </button>
         </div>
       </div>
 
