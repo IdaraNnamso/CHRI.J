@@ -1,66 +1,135 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Navbar from "../components/Navbar";
-import { FiTrash2, FiHeart, FiShoppingBag } from "react-icons/fi";
+
+import {
+  FiTrash2,
+  FiHeart,
+  FiShoppingBag,
+} from "react-icons/fi";
+
+import { useCart } from "../context/CartContext";
 
 export default function Cart() {
+  const navigate = useNavigate();
 
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Pink Dress",
-      price: 12000,
-      image:
-        "https://images.unsplash.com/photo-1520975922284-7c3b0a5d1a5e",
-    },
+  const {
+    cart,
+    removeFromCart,
+    increaseQuantity,
+    decreaseQuantity,
+  } = useCart();
 
-    {
-      id: 2,
-      name: "Cute Hoodie",
-      price: 8000,
-      image:
-        "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf",
-    },
-  ]);
+  // =============================
+  // TOTAL
+  // =============================
 
-  function removeItem(id) {
-    setCartItems(
-      cartItems.filter((item) => item.id !== id)
-    );
-  }
-
-  const total = cartItems.reduce(
-    (sum, item) => sum + item.price,
+  const total = cart.reduce(
+    (sum, item) =>
+      sum +
+      Number(item.price) *
+      Number(item.quantity),
     0
   );
 
-  return (
-    <div className="cart-page">
+  // =============================
+  // FORMAT PRICE
+  // =============================
 
+  const formatPrice = (price) => {
+    return Number(price).toLocaleString(
+      "en-NG"
+    );
+  };
+
+  // =============================
+  // WHATSAPP CHECKOUT
+  // =============================
+
+  const checkoutWhatsApp = () => {
+    if (cart.length === 0) {
+      alert("Your cart is empty.");
+      return;
+    }
+
+    const phoneNumber = "2349162369434";
+
+    let message = `Hello Beck & Call 👋🏽
+
+I would like to make a purchase.
+
+🛍️ *ORDER DETAILS*
+
+`;
+
+    cart.forEach((item, index) => {
+      const itemTotal =
+        Number(item.price) *
+        Number(item.quantity);
+
+      message += `${index + 1}. *${item.name}*
+Quantity: ${item.quantity}
+Price: ₦${formatPrice(item.price)}
+Subtotal: ₦${formatPrice(itemTotal)}
+
+`;
+    });
+
+    message += `-------------------------
+*TOTAL: ₦${formatPrice(total)}*
+-------------------------
+
+Please let me know how I can complete my purchase.
+
+Thank you.`;
+
+    const whatsappURL =
+      `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+        message
+      )}`;
+
+    window.open(
+      whatsappURL,
+      "_blank",
+      "noopener,noreferrer"
+    );
+  };
+
+  return (
+    <div>
       <Navbar />
 
       <section className="cart-container">
 
-        {/* HEADER */}
+        {/* =========================
+            HEADER
+        ========================= */}
 
         <div className="cart-header">
 
           <div className="cart-badge">
             <FiShoppingBag />
-            <span>Luxury Shopping Bag</span>
+
+            <span>
+              Luxury Shopping Bag
+            </span>
           </div>
 
           <h1>Your Cart</h1>
 
           <p>
-            Curated premium fashion pieces selected
-            for elegance, confidence and timeless luxury.
+            Curated premium fashion pieces
+            selected for elegance, confidence
+            and timeless luxury.
           </p>
 
         </div>
 
-        {/* EMPTY */}
+        {/* =========================
+            EMPTY CART
+        ========================= */}
 
-        {cartItems.length === 0 ? (
+        {cart.length === 0 ? (
 
           <div className="empty-cart">
 
@@ -68,14 +137,21 @@ export default function Cart() {
               <FiShoppingBag />
             </div>
 
-            <h2>Your cart feels lonely</h2>
+            <h2>
+              Your cart feels lonely
+            </h2>
 
             <p>
-              Discover luxury fashion pieces and
-              start building your collection.
+              Discover luxury fashion pieces
+              and start building your
+              collection.
             </p>
 
-            <button>
+            <button
+              onClick={() =>
+                navigate("/")
+              }
+            >
               Continue Shopping
             </button>
 
@@ -83,13 +159,17 @@ export default function Cart() {
 
         ) : (
 
+          /* =========================
+              CART LAYOUT
+          ========================= */
+
           <div className="cart-layout">
 
-            {/* ITEMS */}
+            {/* CART ITEMS */}
 
             <div className="cart-items">
 
-              {cartItems.map((item) => (
+              {cart.map((item) => (
 
                 <div
                   key={item.id}
@@ -111,51 +191,107 @@ export default function Cart() {
 
                   </div>
 
-                  {/* INFO */}
+                  {/* INFORMATION */}
 
                   <div className="cart-info">
 
                     <span className="item-brand">
-                      Chris J Collection
+                      Beck & Call Collection
                     </span>
 
-                    <h2>{item.name}</h2>
+                    <h2>
+                      {item.name}
+                    </h2>
 
                     <p className="cart-description">
-                      Premium handcrafted fashion
-                      piece designed for modern
-                      elegance and comfort.
+                      {item.description ||
+                        "Premium luxury fashion crafted for modern elegance, comfort and confidence."}
                     </p>
 
                     <div className="cart-meta">
 
-                      <span>Premium Quality</span>
+                      <span>
+                        Premium Quality
+                      </span>
 
-                      <span>Free Delivery</span>
+                      <span>
+                        Luxury Collection
+                      </span>
 
-                      <span>In Stock</span>
+                      <span>
+                        In Stock
+                      </span>
 
                     </div>
 
+                    {/* BOTTOM */}
+
                     <div className="bottom-row">
 
+                      {/* PRICE */}
+
                       <div className="price-box">
-                        ₦{item.price}
+                        ₦
+                        {formatPrice(
+                          item.price
+                        )}
                       </div>
+
+                      {/* QUANTITY */}
+
+                      <div className="quantity-box">
+
+                        <button
+                          type="button"
+                          onClick={() =>
+                            decreaseQuantity(
+                              item.id
+                            )
+                          }
+                        >
+                          −
+                        </button>
+
+                        <span>
+                          {item.quantity}
+                        </span>
+
+                        <button
+                          type="button"
+                          onClick={() =>
+                            increaseQuantity(
+                              item.id
+                            )
+                          }
+                        >
+                          +
+                        </button>
+
+                      </div>
+
+                      {/* ACTIONS */}
 
                       <div className="cart-buttons">
 
-                        <button className="save-btn">
+                        <button
+                          type="button"
+                          className="save-btn"
+                          title="Save product"
+                        >
                           <FiHeart />
                         </button>
 
                         <button
+                          type="button"
                           className="remove-btn"
                           onClick={() =>
-                            removeItem(item.id)
+                            removeFromCart(
+                              item.id
+                            )
                           }
                         >
                           <FiTrash2 />
+
                           Remove
                         </button>
 
@@ -166,11 +302,14 @@ export default function Cart() {
                   </div>
 
                 </div>
+
               ))}
 
             </div>
 
-            {/* SUMMARY */}
+            {/* =========================
+                ORDER SUMMARY
+            ========================= */}
 
             <div className="cart-summary">
 
@@ -180,36 +319,85 @@ export default function Cart() {
                   Order Summary
                 </span>
 
-                <h2>₦{total}</h2>
+                <h2>
+                  ₦{formatPrice(total)}
+                </h2>
 
                 <div className="summary-row">
-                  <span>Subtotal</span>
-                  <span>₦{total}</span>
+
+                  <span>
+                    Items
+                  </span>
+
+                  <span>
+                    {cart.reduce(
+                      (sum, item) =>
+                        sum +
+                        item.quantity,
+                      0
+                    )}
+                  </span>
+
                 </div>
 
                 <div className="summary-row">
-                  <span>Shipping</span>
-                  <span>Free</span>
+
+                  <span>
+                    Subtotal
+                  </span>
+
+                  <span>
+                    ₦
+                    {formatPrice(
+                      total
+                    )}
+                  </span>
+
                 </div>
 
                 <div className="summary-row">
-                  <span>Tax</span>
-                  <span>Calculated Later</span>
+
+                  <span>
+                    Shipping
+                  </span>
+
+                  <span>
+                    Discuss on WhatsApp
+                  </span>
+
                 </div>
 
-                <div className="summary-divider"></div>
+                <div className="summary-divider" />
 
                 <div className="summary-total">
-                  <span>Total</span>
-                  <strong>₦{total}</strong>
+
+                  <span>
+                    Total
+                  </span>
+
+                  <strong>
+                    ₦
+                    {formatPrice(
+                      total
+                    )}
+                  </strong>
+
                 </div>
 
-                <button className="checkout-btn">
-                  Secure Checkout
+                <button
+                  type="button"
+                  className="checkout-btn"
+                  onClick={
+                    checkoutWhatsApp
+                  }
+                >
+                  Checkout on WhatsApp
                 </button>
 
                 <p className="secure-text">
-                  Encrypted luxury checkout experience.
+                  You will be redirected to
+                  WhatsApp to complete your
+                  purchase.
                 </p>
 
               </div>
@@ -217,10 +405,10 @@ export default function Cart() {
             </div>
 
           </div>
+
         )}
 
       </section>
-
     </div>
   );
 }
